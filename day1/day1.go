@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"bufio"
+	"fmt"
+	"log"
 	"os"
 	"strconv"
-	"log"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 
 	var fileLines []string
 
-	for fileScanner.Scan(){
+	for fileScanner.Scan() {
 		fileLines = append(fileLines, fileScanner.Text())
 	}
 
@@ -31,7 +31,7 @@ func main() {
 
 }
 
-func createTotals(fileLines []string)([]int){
+func createTotals(fileLines []string) []int {
 	var totals []int
 	total := 0
 	for _, line := range fileLines {
@@ -51,7 +51,7 @@ func createTotals(fileLines []string)([]int){
 	return totals
 }
 
-func findMax(slice []int)(int, int){
+func findMax(slice []int) (int, int) {
 	max := 0
 	location := 0
 	for i, x := range slice {
@@ -63,13 +63,13 @@ func findMax(slice []int)(int, int){
 	return max, location
 }
 
-func removeElements(slice []int, index int)[]int{
+func removeElements(slice []int, index int) []int {
 	return append(slice[:index], slice[index+1:]...)
 }
 
 func sumMaxValues(slice []int, top int) int {
 	grand_total := 0
-	for i := 0; i < top; i++{
+	for i := 0; i < top; i++ {
 		max, location := findMax(slice)
 		grand_total += max
 		fmt.Println(max)

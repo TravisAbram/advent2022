@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
-	"fmt"
 	"bufio"
+	"fmt"
+	"os"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 
 	var fileLines []string
 
-	for fileScanner.Scan(){
+	for fileScanner.Scan() {
 		fileLines = append(fileLines, fileScanner.Text())
 	}
 	fmt.Println("Part 1: ", calculateMatch(fileLines))
@@ -40,7 +40,6 @@ func calculateActualMatch(rounds []string) int {
 	}
 	return total
 }
-
 
 func calculateScore(move string) int {
 	var theirs, mine string = string(move[0]), string(move[2])
@@ -81,7 +80,7 @@ func shapeScore(mine string) int {
 
 func getMyMove(move string) string {
 	var theirs, result string = string(move[0]), string(move[2])
-	switch strategy := theirs + result; strategy{
+	switch strategy := theirs + result; strategy {
 	case "AX", "BZ", "CY":
 		return "Z" // sissors
 	case "AY", "BX", "CZ":

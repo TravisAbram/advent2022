@@ -12,7 +12,7 @@ func TestFindMax(t *testing.T) {
 
 func TestTableFindMax(t *testing.T) {
 	var tests = []struct {
-		input []int
+		input    []int
 		expected int
 	}{
 		{[]int{1, 2, 3, 4}, 4},
