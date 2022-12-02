@@ -21,11 +21,7 @@ func main() {
 	for fileScanner.Scan(){
 		fileLines = append(fileLines, fileScanner.Text())
 	}
-	for _, line := range fileLines {
-		fmt.Println(line)
-	}
-	
-	fmt.Println(calculateMatch(fileLines))
+	fmt.Println("Part 1: ", calculateMatch(fileLines))
 }
 
 func calculateMatch(rounds []string) int {
