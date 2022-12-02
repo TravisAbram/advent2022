@@ -82,7 +82,7 @@ func getMyMove(move string) string {
 	var theirs, result string = string(move[0]), string(move[2])
 	switch strategy := theirs + result; strategy {
 	case "AX", "BZ", "CY":
-		return "Z" // sissors
+		return "Z" // scissors
 	case "AY", "BX", "CZ":
 		return "X" // rock
 	default:
