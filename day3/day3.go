@@ -24,6 +24,7 @@ func main() {
 	}
 	
 	fmt.Println("Part 1:", sumPriorities(fileLines))
+	fmt.Println("Part 2:", sumBadges(fileLines))
 
 }
 
@@ -32,6 +33,16 @@ func sumPriorities(sacks []string) int {
 	for _, rucksack := range sacks {
 		first, second := splitCompartments(rucksack)
 		match := findMatch(first, second)
+		total += getCharacterScore(match)
+	}
+	return total
+}
+
+func sumBadges (sacks []string) int {
+	var total int
+	for i := 0; i < len(sacks)/3; i++ {
+		first, second, third := sacks[i*3], sacks[(i*3)+1], sacks[(i*3)+2]
+		match := findMatch3(first, second, third)
 		total += getCharacterScore(match)
 	}
 	return total
@@ -47,6 +58,21 @@ func findMatch(first, second string) string {
 		for _, y := range second {
 			if x == y {
 				return string(x)
+			}
+		}
+	}
+	return "Not found"
+}
+
+func findMatch3(first, second, third string) string {
+	for _, x := range first {
+		for _, y := range second {
+			if x == y {
+				for _, z := range third {
+					if x == z {
+						return string(x)
+					}
+				}
 			}
 		}
 	}
