@@ -24,6 +24,7 @@ func main() {
 		fileLines = append(fileLines, fileScanner.Text())
 	}
 	fmt.Println("Part 1:", sumOfContainments(fileLines))
+	fmt.Println("Part 2:", sumOfOverlaps(fileLines))
 }
 
 func sumOfContainments(fileLines []string) int {
@@ -34,6 +35,16 @@ func sumOfContainments(fileLines []string) int {
 	}
 	return total
 }
+
+func sumOfOverlaps(fileLines []string) int {
+	var total int
+	for _, pair := range fileLines {
+		a, b, x, y := splitAssignments(pair)
+		total += checkOverlap(a, b, x, y)
+	}
+	return total
+}
+
 
 func splitAssignments(assignments string)(a, b, x, y int){
 	var first, second []string
@@ -68,14 +79,14 @@ func checkContainment(a, b, x, y int) int {
 }
 
 func checkOverlap(a, b, x, y int) int {
-	if a == x {
+	if a == x || b == y {
 		return 1
 	} else if a < x {
-		if b >= y {
+		if b >= x {
 			return 1
 		}
 	} else {
-		if b <= y {
+		if y >= a {
 			return 1
 		}
 	}
