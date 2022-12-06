@@ -31,7 +31,7 @@ func main() {
 	}
 	
 	stacks := buildStacks(stackRows)
-	fmt.Println(stacks)
+	stacksP2 := buildStacks(stackRows)
 	// [[N D M Q B P Z] [C L Z Q M D H V] [Q H R D V F Z G] [H G D F N] [N F Q] [D Q V Z F B T] [Q M T Z D V S H] [M G F P N Q] [B W R M]]
 	for _, row := range instructions {
 		move, from, to := parseInstructions(row)
@@ -42,11 +42,19 @@ func main() {
 			stacks[to] = append(stacks[to], target)
 			stacks[from] = stacks[from][:len(stacks[from])-1]
 		}
-		fmt.Println(stacks)
 	}
 	
 	fmt.Println("Part 1:", getTopValues(stacks))
 	
+	for _, row := range instructions {
+		move, from, to := parseInstructions(row)
+		from--
+		to--
+		stacksP2[to] = append(stacksP2[to], stacksP2[from][len(stacksP2[from])-move:]...)
+		stacksP2[from] = stacksP2[from][:len(stacksP2[from])-move]
+	}
+	
+	fmt.Println("Part 2:", getTopValues(stacksP2))
 }
 
 func getTopValues(stacks [][]string) []string {
