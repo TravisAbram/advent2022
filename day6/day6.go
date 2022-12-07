@@ -15,7 +15,7 @@ func main() {
 	for i := 0; i < len(readFile)-4; i++ {
 		set := map[byte]int{}
 		for _, char := range readFile[i:i+4]{
-			set[char] += 1
+			set[char]++
 		}
 		if len(set) == 4 {
 			fmt.Println("Part 1:", i+4, set)
@@ -27,7 +27,7 @@ func main() {
 	for i := 0; i < len(readFile)-14; i++ {
 		set := map[byte]int{}
 		for _, char := range readFile[i:i+14]{
-			set[char] += 1
+			set[char]++
 		}
 		if len(set) == 14 {
 			fmt.Println("Part 2:", i+14, set)
