@@ -67,4 +67,49 @@ func main() {
 	}
 	
 	fmt.Println("Part 1:", tallest + (2*len(fileLines)) + (2*(len(fileLines[0])-2)))
+
+	// N E S W
+	var visMax int
+
+	for i := 0; i < len(fileLines); i++ {
+		for j := 0; j < len(fileLines[i]); j++ {
+			var visible int
+			var north, east, south, west int
+			for n := i-1; n >= 0; n-- {
+				north++
+				if fileLines[n][j] >= fileLines[i][j] {
+					break
+				}
+			}
+			
+			for e := j+1; e <= len(fileLines[i])-1; e++ {
+				east++
+				if fileLines[i][e] >= fileLines[i][j] {
+					break
+				}
+			}
+			
+			for s := i+1; s <= len(fileLines)-1; s++ {
+				south++
+				if fileLines[s][j] >= fileLines[i][j] {
+					break
+				}
+			}
+
+			for w := j-1; w >=0; w-- {
+				west++
+				if fileLines[i][w] >= fileLines[i][j] {
+					break
+				}
+			}
+
+
+			visible = north * east * south * west
+
+			if visible > visMax {
+				visMax = visible
+			}
+		}
+	}
+	fmt.Println("Part 2:", visMax)
 }
