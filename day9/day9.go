@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strings"
 	"strconv"
@@ -28,10 +29,11 @@ func main() {
 	
 	for _, line := range fileLines {
 		direction, count := parseInstructions(line)
-		fmt.Println(direction, count, rope[0])
 
 		for i :=0; i < count; i++ {
+			fmt.Println(direction, count, i, rope[0], rope[1])
 			rope[0] = moveSegment(rope[0], direction)
+			rope[1] = follow(rope[0], rope[1])
 		}
 	}
 }
@@ -50,6 +52,31 @@ func moveSegment(s Segment, direction string)(Segment) {
 	return s
 }
 
+func follow(head, tail Segment)(Segment){
+	xabs := math.Abs(float64(head.x)-float64(tail.x))
+	yabs := math.Abs(float64(head.y)-float64(tail.y))
+	if xabs < 2 && yabs < 2 {
+		return tail
+	}
+
+	x_motion := head.x - tail.x
+	y_motion := head.y - tail.y
+	
+	if x_motion > 0 {
+		tail.right()
+	}
+	if x_motion < 0 {
+		tail.left()
+	}
+	if y_motion > 0 {
+		tail.down()
+	}
+	if y_motion < 0 {
+		tail.up()
+	}
+	return tail
+}
+
 func parseInstructions(line string)(direction string, count int) {
 	split := strings.Split(line, " ")
 	direction = split[0]
@@ -60,13 +87,6 @@ func parseInstructions(line string)(direction string, count int) {
 type Segment struct {
 	x int
 	y int
-}
-
-type Motion interface {
-	left()
-	right()
-	up()
-	down()
 }
 
 func (s *Segment) left() {
