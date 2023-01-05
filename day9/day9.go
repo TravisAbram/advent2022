@@ -25,7 +25,7 @@ func main() {
 		fileLines = append(fileLines, fileScanner.Text())
 	}
 	
-	rope := make([]Segment, 2)
+	rope := make([]Segment, 10)
 	
 	tail := map[Segment]int{}
 	
@@ -35,11 +35,13 @@ func main() {
 		for i :=0; i < count; i++ {
 			// fmt.Println(direction, count, i, rope[0], rope[1])
 			rope[0] = moveSegment(rope[0], direction)
-			rope[1] = follow(rope[0], rope[1])
-			tail[rope[1]] += 1
+			for j := 1; j < len(rope); j++ {
+				rope[j] = follow(rope[j-1], rope[j])
+			}
+			tail[rope[len(rope)-1]] += 1
 		}
 	}
-	fmt.Println("Part 1: ", len(tail))
+	fmt.Println("Part 2: ", len(tail))
 }
 
 func moveSegment(s Segment, direction string)(Segment) {
