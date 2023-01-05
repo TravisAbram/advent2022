@@ -27,15 +27,19 @@ func main() {
 	
 	rope := make([]Segment, 2)
 	
+	tail := map[Segment]int{}
+	
 	for _, line := range fileLines {
 		direction, count := parseInstructions(line)
 
 		for i :=0; i < count; i++ {
-			fmt.Println(direction, count, i, rope[0], rope[1])
+			// fmt.Println(direction, count, i, rope[0], rope[1])
 			rope[0] = moveSegment(rope[0], direction)
 			rope[1] = follow(rope[0], rope[1])
+			tail[rope[1]] += 1
 		}
 	}
+	fmt.Println("Part 1: ", len(tail))
 }
 
 func moveSegment(s Segment, direction string)(Segment) {
